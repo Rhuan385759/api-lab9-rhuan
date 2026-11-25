@@ -49,4 +49,25 @@ jobs:
         with:
           push: true
           tags: rhuan0000/api_homologacao:latest
-   
+          
+  deploy:
+     needs: images
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Deploy na Ec2
+         uses: appleboy/ssh-action@v1.0.3
+
+         with:
+             hosts: 184.193.44.56
+             username: ubuntu
+             key: ${{ secrets.CHAVE }}
+             script: |
+               echo "Acesso liberado"
+
+               sudo docker pull rhuan0000/api_homologacao:latest
+               sudo docker stop api_homologacao 2>/dev/null || true
+               sudo docker rm api_homologacao 2>/dev/null || true
+               
+               sudo docker run --name api_homologacao -d -p 80:80 rhuan0000/api_homologacao:latest
+     
