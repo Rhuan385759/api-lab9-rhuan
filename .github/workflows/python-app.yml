@@ -4,9 +4,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "homologacao" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "homologacao" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v7.4.0
         with:
           push: true
-          tags: rhuan0000/api_homologacao:latest
+          tags: rhuan0000/api-producao-DEV:latest
           
   deploy:
      needs: images
@@ -59,15 +59,15 @@ jobs:
          uses: appleboy/ssh-action@v1.0.3
 
          with:
-             host: 184.193.44.56
+             host: 52.202.40.70
              username: ubuntu
              key: ${{ secrets.CHAVE }}
              script: |
                echo "Acesso liberado"
 
-               sudo docker pull rhuan0000/api_homologacao:latest
-               sudo docker stop api_homologacao 2>/dev/null || true
-               sudo docker rm api_homologacao 2>/dev/null || true
+               sudo docker pull rhuan0000/api-producao-DEV:latest
+               sudo docker stop api-producao-DEV 2>/dev/null || true
+               sudo docker rm api-producao-DEV 2>/dev/null || true
                
-               sudo docker run --name api_homologacao -d -p 80:8080 rhuan0000/api_homologacao:latest
+               sudo docker run --name api-producao-DEV) -d -p 80:8080 rhuan0000/api-producao-DEV):latest
      
