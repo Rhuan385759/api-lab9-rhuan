@@ -59,7 +59,7 @@ jobs:
          uses: appleboy/ssh-action@v1.0.3
 
          with:
-             hosts: 184.193.44.56
+             host: 184.193.44.56
              username: ubuntu
              key: ${{ secrets.CHAVE }}
              script: |
