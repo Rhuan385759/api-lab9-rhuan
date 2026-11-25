@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v7.4.0
         with:
           push: true
-          tags: rhuan0000/api-producao-DEV:latest
+          tags: rhuan0000/api-producao-dev:latest
           
   deploy:
      needs: images
@@ -65,9 +65,9 @@ jobs:
              script: |
                echo "Acesso liberado"
 
-               sudo docker pull rhuan0000/api-producao-DEV:latest
-               sudo docker stop api-producao-DEV 2>/dev/null || true
-               sudo docker rm api-producao-DEV 2>/dev/null || true
+               sudo docker pull rhuan0000/api-producao-dev:latest
+               sudo docker stop api-producao-dev 2>/dev/null || true
+               sudo docker rm api-producao-dev 2>/dev/null || true
                
-               sudo docker run --name api-producao-DEV) -d -p 80:8080 rhuan0000/api-producao-DEV):latest
+               sudo docker run --name api-producao-dev -d -p 80:8080 rhuan0000/api-producao-dev:latest
      
